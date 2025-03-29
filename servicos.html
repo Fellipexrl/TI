@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços | TechVision Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset e Variáveis CSS - Mantido igual às outras páginas */
+        :root {
+            --primary-color: #4285F4;
+            --primary-dark: #3367D6;
+            --primary-light: #8AB4F8;
+            --secondary-color: #34A853;
+            --accent-color: #FBBC05;
+            --text-color: #333;
+            --text-light: #777;
+            --bg-color: #f4f4f9;
+            --card-bg: #ffffff;
+            --dark-bg: #1a1a1a;
+            --dark-card: #2d2d2d;
+            --dark-text: #f0f0f0;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --border-radius: 12px;
+            --nav-height: 70px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        /* Tipografia - Mantido igual */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 2rem 0;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            color: var(--primary-dark);
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        body.dark-mode p {
+            color: #ccc;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Layout - Mantido igual */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section:nth-child(even) {
+            background-color: rgba(66, 133, 244, 0.05);
+        }
+
+        body.dark-mode .section:nth-child(even) {
+            background-color: rgba(52, 168, 83, 0.05);
+        }
+
+        /* Navegação - Mantido igual */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        body.dark-mode header {
+            background-color: var(--dark-card);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--nav-height);
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        body.dark-mode .nav-links a {
+            color: var(--dark-text);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-left: 2rem;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .theme-toggle {
+            color: var(--dark-text);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.8rem;
+            color: var(--text-color);
+        }
+
+        body.dark-mode .hamburger {
+            color: var(--dark-text);
+        }
+
+        /* Hero Section - Adaptado para Serviços */
+        .services-hero {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            margin-top: var(--nav-height);
+        }
+
+        .services-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.3), rgba(52, 168, 83, 0.3));
+            z-index: -1;
+        }
+
+        .services-hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .services-hero h1 {
+            color: white;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: none;
+            -webkit-background-clip: initial;
+            background-clip: initial;
+        }
+
+        .services-hero p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Botões - Mantido igual */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid white;
+            margin-left: 1rem;
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Estilos específicos para Serviços */
+        .services-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .services-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .service-category {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        body.dark-mode .service-category {
+            background-color: var(--dark-card);
+        }
+
+        .service-category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .service-category h3 {
+            margin-bottom: 1rem;
+        }
+
+        /* Serviços Detalhados */
+        .service-details {
+            margin-bottom: 4rem;
+        }
+
+        .service-item {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
+        }
+
+        body.dark-mode .service-item {
+            background-color: var(--dark-card);
+        }
+
+        .service-image {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .service-item:hover .service-image img {
+            transform: scale(1.05);
+        }
+
+        .service-content h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .service-features {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .service-features li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .service-features i {
+            color: var(--primary-color);
+            margin-right: 0.8rem;
+            margin-top: 0.3rem;
+        }
+
+        /* Processo de Trabalho */
+        .work-process {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .process-step {
+            position: relative;
+            padding: 2rem 1.5rem;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        body.dark-mode .process-step {
+            background-color: var(--dark-card);
+        }
+
+        .process-step:hover {
+            transform: translateY(-10px);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .process-step h4 {
+            margin-bottom: 1rem;
+        }
+
+        /* CTA Section */
+        .services-cta {
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            color: white;
+            padding: 6rem 0;
+            border-radius: var(--border-radius);
+            margin: 3rem 0;
+        }
+
+        .services-cta h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .services-cta p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Rodapé - Mantido igual */
+        footer {
+            background-color: var(--card-bg);
+            padding: 3rem 0 1rem;
+            color: var(--text-light);
+            position: relative;
+        }
+
+        body.dark-mode footer {
+            background-color: var(--dark-card);
+            color: #bbb;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .footer-column p {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            transition: var(--transition);
+            display: block;
+        }
+
+        body.dark-mode .footer-links a {
+            color: #bbb;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Botão Voltar ao Topo - Mantido igual */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+
+        /* Progress Bar - Mantido igual */
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background-color: #f1f1f1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+        }
+
+        body.dark-mode .progress-container {
+            background-color: #333;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* Loader - Mantido igual */
+        .loader {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        body.dark-mode .loader {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .loader.active {
+            display: flex;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        /* Modal - Mantido igual */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 9998;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(-50px);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        body.dark-mode .modal-content {
+            background-color: var(--dark-card);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .close-modal {
+            color: #bbb;
+        }
+
+        /* Toast Notification - Mantido igual */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+            z-index: 9999;
+            max-width: 300px;
+        }
+
+        body.dark-mode .toast {
+            background-color: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .toast.active {
+            transform: translateX(0);
+        }
+
+        .toast i {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .toast.success i {
+            color: var(--primary-color);
+        }
+
+        .toast.error i {
+            color: #f44336;
+        }
+
+        .close-toast {
+            margin-left: 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .close-toast {
+            color: #bbb;
+        }
+
+        /* Animações - Mantido igual */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsividade - Adaptado */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .services-hero h1 {
+                font-size: 3rem;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Navegação - Mantido igual */
+            .nav-links {
+                position: fixed;
+                top: var(--nav-height);
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - var(--nav-height));
+                background-color: var(--card-bg);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                transition: var(--transition);
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            body.dark-mode .nav-links {
+                background-color: var(--dark-card);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .services-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .services-hero p {
+                font-size: 1.1rem;
+            }
+
+            .service-item {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .service-features {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .services-hero h1 {
+                font-size: 2rem;
+            }
+
+            .services-hero p {
+                font-size: 1rem;
+            }
+
+            .btn-group {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <p>Carregando...</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h3 id="modalTitle">Modal Title</h3>
+            <p id="modalMessage">Modal message goes here.</p>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Mensagem de sucesso!</span>
+        <span class="close-toast" id="closeToast">&times;</span>
+    </div>
+
+    <!-- Header e Navegação -->
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-laptop-code"></i>
+                <span>TechVision</span>
+            </div>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="sobre.html"><i class="fas fa-info-circle"></i> Sobre</a></li>
+                <li><a href="contato.html"><i class="fas fa-envelope"></i> Contato</a></li>
+                <li><a href="servicos.html" class="active"><i class="fas fa-cogs"></i> Serviços</a></li>
+                <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+            </ul>
+            
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section dos Serviços -->
+    <section class="services-hero">
+        <div class="services-hero-content">
+            <h1>Nossos Serviços</h1>
+            <p>Soluções tecnológicas personalizadas para impulsionar seu negócio no mundo digital</p>
+            <a href="#services" class="btn animate-pulse">Conheça Nossas Soluções</a>
+        </div>
+    </section>
+
+    <!-- Seção de Introdução -->
+    <section class="section">
+        <div class="container">
+            <div class="services-intro">
+                <h2>Soluções Completas em Tecnologia</h2>
+                <p>Na TechVision, oferecemos um portfólio abrangente de serviços tecnológicos projetados para atender às necessidades específicas do seu negócio, desde startups inovadoras até grandes corporações.</p>
+            </div>
+
+            <!-- Categorias de Serviços -->
+            <div class="services-categories">
+                <div class="service-category">
+                    <div class="category-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Desenvolvimento</h3>
+                    <p>Soluções de software personalizadas para atender às suas necessidades específicas de negócios.</p>
+                </div>
+                
+                <div class="service-category">
+                    <div class="category-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>Cloud Solutions</h3>
+                    <p>Migração, gestão e otimização de infraestrutura em nuvem para maior escalabilidade.</p>
+                </div>
+                
+                <div class="service-category">
+                    <div class="category-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Aplicativos Móveis</h3>
+                    <p>Experiências móveis excepcionais para iOS e Android que engajam seus usuários.</p>
+                </div>
+            </div>
+
+            <!-- Serviços Detalhados -->
+            <div id="services" class="service-details">
+                <h2 class="text-center">Nossos Serviços em Detalhe</h2>
+                
+                <!-- Serviço 1 -->
+                <div class="service-item">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Desenvolvimento Web">
+                    </div>
+                    <div class="service-content">
+                        <h3>Desenvolvimento Web Personalizado</h3>
+                        <p>Criamos sites e aplicações web sob medida, focados em performance, usabilidade e resultados para o seu negócio.</p>
+                        
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Sites institucionais e landing pages</li>
+                            <li><i class="fas fa-check"></i> Sistemas web complexos e ERPs</li>
+                            <li><i class="fas fa-check"></i> E-commerces completos</li>
+                            <li><i class="fas fa-check"></i> Aplicações web progressivas (PWA)</li>
+                            <li><i class="fas fa-check"></i> Integrações com APIs e sistemas legados</li>
+                        </ul>
+                        
+                        <a href="contato.html" class="btn">Solicitar Orçamento</a>
+                    </div>
+                </div>
+                
+                <!-- Serviço 2 -->
+                <div class="service-item">
+                    <div class="service-content">
+                        <h3>Aplicativos Móveis Nativos</h3>
+                        <p>Desenvolvemos aplicativos móveis de alta performance para iOS e Android que oferecem experiências excepcionais aos usuários.</p>
+                        
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Aplicativos nativos para iOS e Android</li>
+                            <li><i class="fas fa-check"></i> Soluções híbridas com React Native/Flutter</li>
+                            <li><i class="fas fa-check"></i> Design de UI/UX focado na experiência</li>
+                            <li><i class="fas fa-check"></i> Integração com sistemas existentes</li>
+                            <li><i class="fas fa-check"></i> Publicação nas lojas de aplicativos</li>
+                        </ul>
+                        
+                        <a href="contato.html" class="btn">Solicitar Orçamento</a>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Aplicativos Móveis">
+                    </div>
+                </div>
+                
+                <!-- Serviço 3 -->
+                <div class="service-item">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Cloud Computing">
+                    </div>
+                    <div class="service-content">
+                        <h3>Cloud Computing & DevOps</h3>
+                        <p>Otimizamos sua infraestrutura na nuvem para garantir escalabilidade, segurança e alta disponibilidade.</p>
+                        
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Migração para a nuvem (AWS, Azure, GCP)</li>
+                            <li><i class="fas fa-check"></i> Arquitetura de microsserviços</li>
+                            <li><i class="fas fa-check"></i> Implementação de CI/CD pipelines</li>
+                            <li><i class="fas fa-check"></i> Monitoramento e otimização de custos</li>
+                            <li><i class="fas fa-check"></i> Infraestrutura como código (IaC)</li>
+                        </ul>
+                        
+                        <a href="contato.html" class="btn">Solicitar Orçamento</a>
+                    </div>
+                </div>
+                
+                <!-- Serviço 4 -->
+                <div class="service-item">
+                    <div class="service-content">
+                        <h3>Inteligência Artificial & Machine Learning</h3>
+                        <p>Implementamos soluções de IA que automatizam processos, analisam dados e melhoram a tomada de decisão.</p>
+                        
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Chatbots e assistentes virtuais</li>
+                            <li><i class="fas fa-check"></i> Processamento de linguagem natural (NLP)</li>
+                            <li><i class="fas fa-check"></i> Visão computacional e reconhecimento de imagens</li>
+                            <li><i class="fas fa-check"></i> Modelos preditivos e análise de dados</li>
+                            <li><i class="fas fa-check"></i> Sistemas de recomendação personalizados</li>
+                        </ul>
+                        
+                        <a href="contato.html" class="btn">Solicitar Orçamento</a>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Inteligência Artificial">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Processo de Trabalho -->
+            <div class="work-process">
+                <h2>Nosso Processo de Trabalho</h2>
+                <p>Um método comprovado para entregar soluções tecnológicas de alta qualidade dentro do prazo e orçamento</p>
+                
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <h4>Descoberta</h4>
+                        <p>Entendemos suas necessidades, objetivos e desafios através de workshops e pesquisas.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <h4>Planejamento</h4>
+                        <p>Criamos um roadmap detalhado com cronograma, orçamento e entregáveis claros.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <h4>Desenvolvimento</h4>
+                        <p>Implementamos a solução com metodologias ágeis e entregas incrementais.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <h4>Implantação</h4>
+                        <p>Preparamos o ambiente e realizamos a implantação controlada da solução.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">5</div>
+                        <h4>Suporte</h4>
+                        <p>Oferecemos suporte contínuo para garantir o perfeito funcionamento.</p>
+                    </div> 
+                    <!-- Seção CTA -->
+<section class="section">
+    <div class="container">
+        <div class="services-cta">
+            <h2>Pronto para Transformar Seu Negócio?</h2>
+            <p>Nossa equipe está pronta para entender suas necessidades e oferecer a melhor solução tecnológica para impulsionar seus resultados.</p>
+            <a href="contato.html" class="btn">Fale Conosco</a>
+            <a href="#services" class="btn btn-secondary">Ver Serviços</a>
+        </div>
+    </div>
+</section>
+
+<!-- Rodapé -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>TechVision</h3>
+                <p>Transformando ideias em soluções tecnológicas inovadoras que impulsionam negócios e melhoram vidas.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Links Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="sobre.html">Sobre Nós</a></li>
+                    <li><a href="servicos.html">Serviços</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Serviços</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Desenvolvimento Web</a></li>
+                    <li><a href="#">Aplicativos Móveis</a></li>
+                    <li><a href="#">Cloud Solutions</a></li>
+                    <li><a href="#">Inteligência Artificial</a></li>
+                    <li><a href="#">Consultoria em TI</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contato</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Av. Paulista, 1000 - São Paulo, SP</p>
+                <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+                <p><i class="fas fa-envelope"></i> contato@techvision.com</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 TechVision Solutions. Todos os direitos reservados.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Botão Voltar ao Topo -->
+<div class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+<script>
+    // JavaScript para funcionalidades da página
+    document.addEventListener('DOMContentLoaded', function() {
+        // Loader
+        const loader = document.getElementById('loader');
+        
+        // Mostrar loader ao carregar a página
+        loader.classList.add('active');
+        
+        // Esconder loader após 1.5 segundos (simulação)
+        setTimeout(() => {
+            loader.classList.remove('active');
+        }, 1500);
+        
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // Verificar preferência de tema no localStorage
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        });
+        
+        // Menu Mobile
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Fechar menu ao clicar em um link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Progress Bar
+        window.onscroll = function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+            
+            // Back to Top Button
+            const backToTop = document.getElementById('backToTop');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+        };
+        
+        // Back to Top Button
+        document.getElementById('backToTop').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Modal
+        const modal = document.getElementById('modal');
+        const closeModal = document.getElementById('closeModal');
+        
+        closeModal.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+        
+        // Toast Notification
+        const toast = document.getElementById('toast');
+        const closeToast = document.getElementById('closeToast');
+        
+        closeToast.addEventListener('click', () => {
+            toast.classList.remove('active');
+        });
+        
+        // Exemplo de como mostrar o toast (pode ser chamado após alguma ação)
+        function showToast(message, type = 'success') {
+            const toastMessage = document.getElementById('toastMessage');
+            const toastIcon = toast.querySelector('i');
+            
+            toastMessage.textContent = message;
+            
+            if (type === 'success') {
+                toast.className = 'toast success';
+                toastIcon.className = 'fas fa-check-circle';
+            } else {
+                toast.className = 'toast error';
+                toastIcon.className = 'fas fa-exclamation-circle';
+            }
+            
+            toast.classList.add('active');
+            
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 5000);
+        }
+        
+        // Animações ao scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.service-item, .process-step, .service-category');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        // Inicializar elementos com opacidade 0 para animação
+        document.querySelectorAll('.service-item, .process-step, .service-category').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+        
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Chamar uma vez ao carregar
+        
+        // Exemplo de como abrir o modal (pode ser chamado por algum botão)
+        function openModal(title, message) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalMessage').textContent = message;
+            modal.classList.add('active');
+        }
+    });
+</script>
+</body>
+</html>

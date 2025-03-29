@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | TechVision Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset e Variáveis CSS - Mantido igual à página principal */
+        :root {
+            --primary-color: #4285F4;
+            --primary-dark: #3367D6;
+            --primary-light: #8AB4F8;
+            --secondary-color: #34A853;
+            --accent-color: #FBBC05;
+            --text-color: #333;
+            --text-light: #777;
+            --bg-color: #f4f4f9;
+            --card-bg: #ffffff;
+            --dark-bg: #1a1a1a;
+            --dark-card: #2d2d2d;
+            --dark-text: #f0f0f0;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --border-radius: 12px;
+            --nav-height: 70px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        /* Tipografia - Mantido igual */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 2rem 0;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            color: var(--primary-dark);
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        body.dark-mode p {
+            color: #ccc;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Layout - Mantido igual */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section:nth-child(even) {
+            background-color: rgba(66, 133, 244, 0.05);
+        }
+
+        body.dark-mode .section:nth-child(even) {
+            background-color: rgba(52, 168, 83, 0.05);
+        }
+
+        /* Navegação - Mantido igual */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        body.dark-mode header {
+            background-color: var(--dark-card);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--nav-height);
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        body.dark-mode .nav-links a {
+            color: var(--dark-text);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-left: 2rem;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .theme-toggle {
+            color: var(--dark-text);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.8rem;
+            color: var(--text-color);
+        }
+
+        body.dark-mode .hamburger {
+            color: var(--dark-text);
+        }
+
+        /* Hero Section - Adaptado para o Blog */
+        .blog-hero {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            margin-top: var(--nav-height);
+        }
+
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.3), rgba(52, 168, 83, 0.3));
+            z-index: -1;
+        }
+
+        .blog-hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .blog-hero h1 {
+            color: white;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: none;
+            -webkit-background-clip: initial;
+            background-clip: initial;
+        }
+
+        .blog-hero p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Botões - Mantido igual */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid white;
+            margin-left: 1rem;
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Estilos específicos do Blog */
+        .blog-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            padding: 3rem 0;
+        }
+
+        .blog-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-post {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        body.dark-mode .blog-post {
+            background-color: var(--dark-card);
+        }
+
+        .blog-post:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .post-image {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .blog-post:hover .post-image img {
+            transform: scale(1.05);
+        }
+
+        .post-content {
+            padding: 1.5rem;
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .post-meta {
+            color: #bbb;
+        }
+
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            margin-right: 1rem;
+        }
+
+        .post-meta i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .post-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        body.dark-mode .post-title {
+            color: var(--dark-text);
+        }
+
+        .post-excerpt {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .post-excerpt {
+            color: #ccc;
+        }
+
+        .read-more {
+            display: inline-block;
+            color: var(--primary-color);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .read-more:hover {
+            color: var(--primary-dark);
+            transform: translateX(5px);
+        }
+
+        /* Sidebar */
+        .blog-sidebar {
+            padding: 2rem;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        body.dark-mode .blog-sidebar {
+            background-color: var(--dark-card);
+        }
+
+        .sidebar-widget {
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-widget h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        .search-form {
+            display: flex;
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+        }
+
+        body.dark-mode .search-input {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+            border-color: #444;
+        }
+
+        .search-button {
+            padding: 0 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .categories-list, .tags-list {
+            list-style: none;
+        }
+
+        .categories-list li, .tags-list li {
+            margin-bottom: 0.8rem;
+        }
+
+        .categories-list a, .tags-list a {
+            display: flex;
+            align-items: center;
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        body.dark-mode .categories-list a,
+        body.dark-mode .tags-list a {
+            color: #bbb;
+        }
+
+        .categories-list a:hover, .tags-list a:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .categories-list i, .tags-list i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .tags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tags-list a {
+            background-color: rgba(66, 133, 244, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+
+        .tags-list a:hover {
+            background-color: rgba(66, 133, 244, 0.2);
+        }
+
+        /* Paginação */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .page-numbers {
+            display: flex;
+            list-style: none;
+        }
+
+        .page-numbers li {
+            margin: 0 0.5rem;
+        }
+
+        .page-numbers a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        body.dark-mode .page-numbers a {
+            background-color: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .page-numbers a:hover, .page-numbers a.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Newsletter */
+        .newsletter-form {
+            margin-top: 1.5rem;
+        }
+
+        .newsletter-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+        }
+
+        body.dark-mode .newsletter-input {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+            border-color: #444;
+        }
+
+        /* Posts Populares */
+        .popular-posts {
+            list-style: none;
+        }
+
+        .popular-post {
+            display: flex;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        body.dark-mode .popular-post {
+            border-bottom-color: #444;
+        }
+
+        .popular-post:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .popular-post-image {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .popular-post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .popular-post:hover .popular-post-image img {
+            transform: scale(1.1);
+        }
+
+        .popular-post-content h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .popular-post-content h4 a {
+            color: var(--text-color);
+        }
+
+        body.dark-mode .popular-post-content h4 a {
+            color: var(--dark-text);
+        }
+
+        .popular-post-content h4 a:hover {
+            color: var(--primary-color);
+        }
+
+        .popular-post-content span {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        /* Rodapé - Mantido igual */
+        footer {
+            background-color: var(--card-bg);
+            padding: 3rem 0 1rem;
+            color: var(--text-light);
+            position: relative;
+        }
+
+        body.dark-mode footer {
+            background-color: var(--dark-card);
+            color: #bbb;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .footer-column p {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            transition: var(--transition);
+            display: block;
+        }
+
+        body.dark-mode .footer-links a {
+            color: #bbb;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Botão Voltar ao Topo - Mantido igual */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+
+        /* Progress Bar - Mantido igual */
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background-color: #f1f1f1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+        }
+
+        body.dark-mode .progress-container {
+            background-color: #333;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* Loader - Mantido igual */
+        .loader {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        body.dark-mode .loader {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .loader.active {
+            display: flex;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        /* Modal - Mantido igual */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 9998;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(-50px);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        body.dark-mode .modal-content {
+            background-color: var(--dark-card);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .close-modal {
+            color: #bbb;
+        }
+
+        /* Toast Notification - Mantido igual */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+            z-index: 9999;
+            max-width: 300px;
+        }
+
+        body.dark-mode .toast {
+            background-color: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .toast.active {
+            transform: translateX(0);
+        }
+
+        .toast i {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .toast.success i {
+            color: var(--primary-color);
+        }
+
+        .toast.error i {
+            color: #f44336;
+        }
+
+        .close-toast {
+            margin-left: 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .close-toast {
+            color: #bbb;
+        }
+
+        /* Animações - Mantido igual */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsividade - Adaptado */
+        @media (min-width: 992px) {
+            .blog-container {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Navegação - Mantido igual */
+            .nav-links {
+                position: fixed;
+                top: var(--nav-height);
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - var(--nav-height));
+                background-color: var(--card-bg);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                transition: var(--transition);
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            body.dark-mode .nav-links {
+                background-color: var(--dark-card);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .blog-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .blog-hero p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .blog-hero h1 {
+                font-size: 2rem;
+            }
+
+            .blog-hero p {
+                font-size: 1rem;
+            }
+
+            .blog-posts {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <p>Carregando...</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h3 id="modalTitle">Modal Title</h3>
+            <p id="modalMessage">Modal message goes here.</p>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Mensagem de sucesso!</span>
+        <span class="close-toast" id="closeToast">&times;</span>
+    </div>
+
+    <!-- Header e Navegação -->
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-laptop-code"></i>
+                <span>TechVision</span>
+            </div>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="sobre.html"><i class="fas fa-info-circle"></i> Sobre</a></li>
+                <li><a href="contato.html"><i class="fas fa-envelope"></i> Contato</a></li>
+                <li><a href="servicos.html"><i class="fas fa-cogs"></i> Serviços</a></li>
+                <li><a href="blog.html" class="active"><i class="fas fa-blog"></i> Blog</a></li>
+            </ul>
+            
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section do Blog -->
+    <section class="blog-hero">
+        <div class="blog-hero-content">
+            <h1>Blog TechVision</h1>
+            <p>Fique por dentro das últimas tendências em tecnologia, dicas e insights do mundo digital.</p>
+        </div>
+    </section>
+
+    <!-- Conteúdo Principal do Blog -->
+    <main class="section">
+        <div class="container blog-container">
+            <!-- Posts do Blog -->
+            <div class="blog-posts">
+                <!-- Post 1 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Desenvolvimento Web Moderno">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> 15 Jun 2023</span>
+                            <span><i class="far fa-user"></i> João Silva</span>
+                            <span><i class="far fa-comment"></i> 5 Comentários</span>
+                        </div>
+                        <h2 class="post-title"><a href="post.html">Desenvolvimento Web Moderno: As Tendências para 2023</a></h2>
+                        <p class="post-excerpt">Explore as principais tendências em desenvolvimento web que estão moldando a experiência do usuário e a eficiência dos sistemas em 2023.</p>
+                        <a href="post.html" class="read-more">Leia Mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Post 2 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Inteligência Artificial">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> 02 Jun 2023</span>
+                            <span><i class="far fa-user"></i> Maria Oliveira</span>
+                            <span><i class="far fa-comment"></i> 12 Comentários</span>
+                        </div>
+                        <h2 class="post-title"><a href="post.html">Como a IA Está Transformando os Negócios em 2023</a></h2>
+                        <p class="post-excerpt">Descubra como empresas estão utilizando inteligência artificial para otimizar processos, reduzir custos e melhorar a experiência do cliente.</p>
+                        <a href="post.html" class="read-more">Leia Mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Post 3 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Segurança Cibernética">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> 25 Mai 2023</span>
+                            <span><i class="far fa-user"></i> Carlos Mendes</span>
+                            <span><i class="far fa-comment"></i> 8 Comentários</span>
+                        </div>
+                        <h2 class="post-title"><a href="post.html">Segurança Cibernética: Protegendo Seu Negócio em um Mundo Digital</a></h2>
+                        <p class="post-excerpt">Conheça as melhores práticas e tecnologias para proteger seus dados e sistemas contra ameaças cibernéticas cada vez mais sofisticadas.</p>
+                        <a href="post.html" class="read-more">Leia Mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Post 4 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Cloud Computing">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> 18 Mai 2023</span>
+                            <span><i class="far fa-user"></i> Ana Santos</span>
+                            <span><i class="far fa-comment"></i> 3 Comentários</span>
+                        </div>
+                        <h2 class="post-title"><a href="post.html">Cloud Computing: Como Escolher a Melhor Solução para Seu Negócio</a></h2>
+                        <p class="post-excerpt">Guia completo para entender as opções de computação em nuvem e como selecionar a melhor para suas necessidades empresariais.</p>
+                        <a href="post.html" class="read-more">Leia Mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Post 5 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="UX/UI Design">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> 10 Mai 2023</span>
+                            <span><i class="far fa-user"></i> Pedro Alves</span>
+                            <span><i class="far fa-comment"></i> 6 Comentários</span>
+                        </div>
+                        <h2 class="post-title"><a href="post.html">Princípios Fundamentais de UX/UI Design para Aplicativos Móveis</a></h2>
+                        <p class="post-excerpt">Conheça os princípios essenciais de design de experiência do usuário e interface que todo desenvolvedor de aplicativos deve conhecer.</p>
+                        <a href="post.html" class="read-more">Leia Mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Post 6 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Business Intelligence">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> 28 Abr 2023</span>
+                            <span><i class="far fa-user"></i> Luiza Fernandes</span>
+                            <span><i class="far fa-comment"></i> 4 Comentários</span>
+                        </div>
+                        <h2 class="post-title"><a href="post.html">Business Intelligence: Transformando Dados em Decisões Estratégicas</a></h2>
+                        <p class="post-excerpt">Como empresas estão utilizando BI para analisar dados, identificar tendências e tomar decisões mais informadas e estratégicas.</p>
+                        <a href="post.html" class="read-more">Leia Mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Paginação -->
+                <div class="pagination">
+                    <ul class="page-numbers">
+                        <li><a href="#" class="active">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="blog-sidebar">
+                <!-- Busca -->
+                <div class="sidebar-widget">
+                    <h3>Buscar</h3>
+                    <form class="search-form">
+                        <input type="text" class="search-input" placeholder="Pesquisar...">
+                        <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+
+                <!-- Categorias -->
+                <div class="sidebar-widget">
+                    <h3>Categorias</h3>
+                    <ul class="categories-list">
+                        <li><a href="#"><i class="fas fa-code"></i> Desenvolvimento</a></li>
+                        <li><a href="#"><i class="fas fa-cloud"></i> Cloud Computing</a></li>
+                        <li><a href="#"><i class="fas fa-mobile-alt"></i> Aplicativos Móveis</a></li>
+                        <li><a href="#"><i class="fas fa-robot"></i> Inteligência Artificial</a></li>
+                        <li><a href="#"><i class="fas fa-shield-alt"></i> Segurança</a></li>
+                        <li><a href="#"><i class="fas fa-chart-line"></i> Business Intelligence</a></li>
+                    </ul>
+                </div>
+
+                <!-- Posts Populares -->
+                <div class="sidebar-widget">
+                    <h3>Posts Populares</h3>
+                    <ul class="popular-posts">
+                        <li class="popular-post">
+                            <div class="popular-post-image">
+                                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Post Popular">
+                            </div>
+                            <div class="popular-post-content">
+                                <h4><a href="#">Desenvolvimento Web Moderno em 2023</a></h4>
+                                <span><i class="far fa-calendar-alt"></i> 15 Jun 2023</span>
+                            </div>
+                        </li>
+                        <li class="popular-post">
+                            <div class="popular-post-image">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Post Popular">
+                            </div>
+                            <div class="popular-post-content">
+                                <h4><a href="#">IA Transformando Negócios</a></h4>
+                                <span><i class="far fa-calendar-alt"></i> 02 Jun 2023</span>
+                            </div>
+                        </li>
+                        <li class="popular-post">
+                            <div class="popular-post-image">
+                                <img src="https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Post Popular">
+                            </div>
+                            <div class="popular-post-content">
+                                <h4><a href="#">Segurança Cibernética Essencial</a></h4>
+                                <span><i class="far fa-calendar-alt"></i> 25 Mai 2023</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tags -->
+                <div class="sidebar-widget">
+                    <h3>Tags</h3>
+                    <ul class="tags-list">
+                        <li><a href="#">Tecnologia</a></li>
+                        <li><a href="#">Inovação</a></li>
+                        <li><a href="#">Web</a></li>
+                        <li><a href="#">Mobile</a></li>
+                        <li><a href="#">IA</a></li>
+                        <li><a href="#">Cloud</a></li>
+                        <li><a href="#">Segurança</a></li>
+                        <li><a href="#">BI</a></li>
+                        <li><a href="#">UX/UI</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="sidebar-widget">
+                    <h3>Newsletter</h3>
+                    <p>Assine nossa newsletter para receber as últimas atualizações e artigos diretamente no seu e-mail.</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Seu melhor e-mail" required>
+                        <button type="submit" class="btn">Assinar</button>
+                    </form>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Sobre Nós</h3>
+                    <p>A TechVision é uma empresa especializada em soluções tecnológicas inovadoras para impulsionar negócios.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="sobre.html"><i class="fas fa-chevron-right"></i> Sobre</a></li>
+                        <li><a href="servicos.html"><i class="fas fa-chevron-right"></i> Serviços</a></li>
+                        <li><a href="blog.html"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                        <li><a href="contato.html"><i class="fas fa-chevron-right"></i> Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Categorias do Blog</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Desenvolvimento</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Cloud Computing</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Inteligência Artificial</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Segurança</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Business Intelligence</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Av. Paulista, 1000 - São Paulo, SP</p>
+                    <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+                    <p><i class="fas fa-envelope"></i> contato@techvision.com</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 TechVision Solutions. Todos os direitos reservados. | Desenvolvido com <i class="fas fa-heart" style="color: #f44336;"></i> por <a href="#" style="color: var(--primary-color);">Nossa Equipe</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão Voltar ao Topo -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- JavaScript - Mantido igual à página principal -->
+    <script>
+        // Carregar página
+        window.addEventListener('load', function() {
+            document.getElementById('loader').classList.remove('active');
+        });
+
+        // Menu Mobile
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        
+        hamburger.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            this.querySelector('i').classList.toggle('fa-bars');
+            this.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // Fechar menu ao clicar em um link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.querySelector('i').classList.add('fa-bars');
+                hamburger.querySelector('i').classList.remove('fa-times');
+            });
+        });
+
+        // Tema Escuro/Claro
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // Verificar preferência do usuário
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        
+        themeToggle.addEventListener('click', function() {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                this.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                localStorage.setItem('theme', 'light');
+                this.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        });
+
+        // Barra de Progresso
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollProgress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progressBar').style.width = scrollProgress + '%';
+        });
+
+        // Botão Voltar ao Topo
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+        });
+        
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Modal
+        const modal = document.getElementById('modal');
+        const closeModal = document.getElementById('closeModal');
+        
+        function showModal(title, message) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalMessage').textContent = message;
+            modal.classList.add('active');
+        }
+        
+        closeModal.addEventListener('click', function() {
+            modal.classList.remove('active');
+        });
+        
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        // Toast Notification
+        const toast = document.getElementById('toast');
+        const closeToast = document.getElementById('closeToast');
+        let toastTimeout;
+        
+        function showToast(message, type) {
+            clearTimeout(toastTimeout);
+            
+            // Atualizar mensagem e tipo
+            document.getElementById('toastMessage').textContent = message;
+            toast.className = 'toast ' + type;
+            toast.querySelector('i').className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+            
+            // Mostrar toast
+            toast.classList.add('active');
+            
+            // Esconder após 5 segundos
+            toastTimeout = setTimeout(function() {
+                toast.classList.remove('active');
+            }, 5000);
+        }
+        
+        closeToast.addEventListener('click', function() {
+            toast.classList.remove('active');
+            clearTimeout(toastTimeout);
+        });
+
+        // Suavizar scroll para links âncora
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Mostrar toast ao assinar newsletter
+        document.querySelector('.newsletter-form')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            showToast('Obrigado por assinar nossa newsletter!', 'success');
+            this.reset();
+        });
+
+        // Mostrar modal de boas-vindas após 3 segundos
+        setTimeout(function() {
+            showModal('Bem-vindo ao Blog TechVision!', 'Fique por dentro das últimas tendências em tecnologia com nossos artigos especializados.');
+        }, 3000);
+    </script>
+</body>
+</html>
